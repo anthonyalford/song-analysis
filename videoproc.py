@@ -6,6 +6,7 @@ def clock():
     return cv2.getTickCount() / cv2.getTickFrequency()
 
 def draw_str(dst, (x, y), s):
+    # ex:         draw_str(vis, (20, 20), 'time: %.1f ms' % (dt*1000))
     cv2.putText(dst, s, (x+1, y+1), cv2.FONT_HERSHEY_PLAIN, 1.0, (0, 0, 0), thickness = 2, lineType=cv2.CV_AA)
     cv2.putText(dst, s, (x, y), cv2.FONT_HERSHEY_PLAIN, 1.0, (255, 255, 255), lineType=cv2.CV_AA)
 
@@ -32,24 +33,25 @@ if __name__ == '__main__':
     # Read three images first:
     t_minus = cv2.cvtColor(cap.read()[1], cv2.COLOR_RGB2GRAY)
     t = cv2.cvtColor(cap.read()[1], cv2.COLOR_RGB2GRAY)
-    t_plus = cv2.cvtColor(cap.read()[1], cv2.COLOR_RGB2GRAY)
 
     while(cap.isOpened()):
+        t_plus = cap.read()[1]
 
         dt = cap.get(0)
         sec = int(dt/1000)
 
-        if sec % 90 == 0:
-            save_img_time(diffImg(t_minus, t, t_plus), "motion", sec)
-            save_img_time(t, "frame", sec)
+        if sec % 30 == 0:
+            #diffed = diffImg(t_minus, t, cv2.cvtColor(t_plus, cv2.COLOR_RGB2GRAY))
+            #save_img_time(diffed, "motion", sec)
+            save_img_time(t_plus, "frame", sec)
 
 #        draw_str(frame, (20, 20), '%.1f' % sec)
 #        cv2.imshow('frame',frame)
 
         # Read next image
         t_minus = t
-        t = t_plus
-        t_plus = cv2.cvtColor(cap.read()[1], cv2.COLOR_RGB2GRAY)
+        t = cv2.cvtColor(t_plus, cv2.COLOR_RGB2GRAY)
+        t_plus =cap.read()[1]
 
     cap.release()
     cv2.destroyAllWindows()
