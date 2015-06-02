@@ -27,7 +27,7 @@ def diffImg(t0, t1, t2):
 
 if __name__ == '__main__':
 
-    cap = cv2.VideoCapture('/Users/anthonya/Downloads/set1.mov')
+    cap = cv2.VideoCapture('/Users/anthonya/Downloads/set2.mov')
     winName = "Movement Indicator"
 
     # Read three images first:

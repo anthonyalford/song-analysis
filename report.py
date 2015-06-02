@@ -11,9 +11,8 @@ def to_minutes(t):
     secs = t - (hours * 3600) - (minutes * 60)
     return "%d-%d-%d" % (hours,minutes, secs)
 
-with open('/Users/anthonya/Downloads/set2.txt','rb') as tsvin, open('/Users/anthonya/Downloads/new.txt', 'wb') as csvout:
+with open('/Users/anthonya/Downloads/set.txt','rb') as tsvin:
     tsvin = csv.reader(tsvin, delimiter='\t')
-    csvout = csv.writer(csvout)
     tsvin.next()
 
     increment = 30
@@ -28,5 +27,5 @@ with open('/Users/anthonya/Downloads/set2.txt','rb') as tsvin, open('/Users/anth
         print ""
         print "## " + song + " (" + start_time + " - " + end_time + ")"
         while(secpoint<end_sec):
-            print "![](img/frame_" + to_minutes(secpoint) + ".jpg)"
+            print "![](frame_" + to_minutes(secpoint) + ".jpg)"
             secpoint = secpoint + increment
